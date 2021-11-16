@@ -1,0 +1,2 @@
+1)  display eta using threads.
+2)  check endRide method in driver class
