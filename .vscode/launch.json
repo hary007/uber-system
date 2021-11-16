@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Journey",
+            "request": "launch",
+            "mainClass": "Journey",
+            "projectName": "uber-system_3316aff6"
+        },
+        {
+            "command": "npm start",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ]
+}
