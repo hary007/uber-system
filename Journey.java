@@ -78,7 +78,11 @@ class Driver extends Cab {
 
     }
 
-    Driver(String name, float rating, Landmark currentLocation)
+    Driver(String name, float rating, Landmark currentLocation){
+        this.name=name;
+        this.rating=rating;
+        this.currentLocation=currentLocation;
+    }
 
     void changeAvailableStatus() {
         if (available)
