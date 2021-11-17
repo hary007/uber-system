@@ -188,9 +188,37 @@ class Journey {
                 landmarks.add(k);
             }
 
-            for (int i = 0; i < t; i++) {
-                System.out.println(landmarks.get(i).name);
+            // for (int i = 0; i < t; i++) {
+            //     System.out.println(landmarks.get(i).name);
+            // }
+
+            
+        System.out.println("Enter pickup Location:-");
+        Scanner s=new Scanner(System.in);
+
+        String pickupLocation;
+        pickupLocation=s.next();
+        int pickupX,pickupY;
+        
+        System.out.println("Enter destination:-");
+
+        String destination;
+        int destX,destY;
+
+        destination=s.next();
+        for(int i=0;i<landmarks.size();i++){
+            if(pickupLocation==landmarks.get(i).name){
+                destX=landmarks.get(i).getAbscissa();
+                destY=landmarks.get(i).getOrdinate();
             }
+            else if(destination==landmarks.get(i).name){
+                pickupX=landmarks.get(i).getAbscissa();
+                pickupY=landmarks.get(i).getOrdinate();
+            }
+        }
+
+
+
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getStackTrace());
@@ -199,14 +227,7 @@ class Journey {
         }
 
         
-        System.out.println("Enter pickup Location:-");
-        Scanner s=new Scanner(System.in);
-        String pickupLocation;
-        pickupLocation=s.next();
-        System.out.println("Enter destination:-");
-        String destination;
-        destination=s.next();
-
         
+
     }
 }
