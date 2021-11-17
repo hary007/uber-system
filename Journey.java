@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 class City {
@@ -78,10 +80,10 @@ class Driver extends Cab {
 
     }
 
-    Driver(String name, float rating, Landmark currentLocation){
-        this.name=name;
-        this.rating=rating;
-        this.currentLocation=currentLocation;
+    Driver(String name, float rating, Landmark currentLocation) {
+        this.name = name;
+        this.rating = rating;
+        this.currentLocation = currentLocation;
     }
 
     void changeAvailableStatus() {
@@ -159,6 +161,44 @@ class Customer extends Landmark{
 class Journey {
 
     public static void main(String[] args) {
+
+
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new FileReader("city.txt"));
+
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            City c = new City(n, m);
+
+            int t = sc.nextInt();
+
+            List<Landmark> landmarks = new ArrayList<Landmark>();
+
+            for (int i = 0; i < t; i++) {
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+                String name = sc.next();
+
+                Landmark k = new Landmark();
+                k.setAbscissa(x);
+                k.setOrdinate(y);
+                k.setName(name);
+
+                landmarks.add(k);
+            }
+
+            for (int i = 0; i < t; i++) {
+                System.out.println(landmarks.get(i).name);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getStackTrace());
+        } finally {
+            sc.close();
+        }
+
+        
         System.out.println("Enter pickup Location:-");
         Scanner s=new Scanner(System.in);
         String pickupLocation;
@@ -166,8 +206,7 @@ class Journey {
         System.out.println("Enter destination:-");
         String destination;
         destination=s.next();
-        
-        
+
         
     }
 }
