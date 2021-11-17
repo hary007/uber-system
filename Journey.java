@@ -124,11 +124,50 @@ class Driver extends Cab {
         // driver. 1) take parameter in this method. 2) Use journey class
     }
 }
+class Customer extends Landmark{
+    String name;
+    Landmark pickupLocation;
+    Landmark destination;
+    void chooseDriver(){
+        //return list of available drivers from the database
+    }
+    void choosePickupLocation(){
+        System.out.println("Enter pickup Location");
+        Scanner s=new Scanner(System.in);
+        int x=s.nextInt();
+        int y=s.nextInt();
+        s.close();
+        pickupLocation.setAbscissa(x);
+        pickupLocation.setOrdinate(y);
+    }
+    void choosedestination(){
+        System.out.println("Enter pickup Location");
+        Scanner s=new Scanner(System.in);
+        int x=s.nextInt();
+        int y=s.nextInt();
+        s.close();
+        destination.setAbscissa(x);
+        destination.setOrdinate(y);
+    }
+    void cancelBooking(Driver d){
+        //driver available status to be changed.
+        d.available=true;
+        System.out.println("The booking is cancelled");
+    }
+}
 
 class Journey {
 
     public static void main(String[] args) {
-        City c = new City(12, 14);
-
+        System.out.println("Enter pickup Location:-");
+        Scanner s=new Scanner(System.in);
+        String pickupLocation;
+        pickupLocation=s.next();
+        System.out.println("Enter destination:-");
+        String destination;
+        destination=s.next();
+        
+        
+        
     }
 }
