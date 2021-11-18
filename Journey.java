@@ -97,7 +97,6 @@ class Driver extends Cab {
         if(notify){
             System.out.println("You have an avaiable ride");
             System.out.println("Journey Details: ");
-            
         }
     }
     void changeAvailableStatus() {
@@ -314,7 +313,9 @@ class Journey {
             indexForDriver=s.nextInt();
         }
         //notifying the selected driver about the trip
-        drivers.get(indexForDriver).notify(); 
+        drivers.get(indexForDriver-1).notifyAboutJourney();
+        
+        //Logging out the customer such that driver can login
 
 
         
