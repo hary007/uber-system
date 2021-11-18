@@ -82,25 +82,41 @@ class Driver extends Cab {
     private String name;
     private float rating;
     Landmark currentLocation;
-    int available; // this variable will be true if a driver is ready to pick the customer up.
-    // how to change the value of available in the database once the ride has been
-    // confirmed.
+
+    boolean available; // this variable will be true if a driver is ready to pick the customer up.
+
     int speed;
+    boolean notify;
 
     Driver() {
 
     }
 
-    Driver(String name, float rating, Landmark currentLocation, int available) {
+    Driver(String name, float rating, Landmark currentLocation, boolean available, int speed) {
         this.name = name;
         this.rating = rating;
         this.currentLocation = currentLocation;
         this.available = available;
+        this.speed = speed;
+        this.notify = false;
+    }
+
+    void notifyAboutJourney() {
+        this.notify = true;
+    }
+
+    void notification() {
+        if (notify) {
+            System.out.println("You have an avaiable ride");
+            System.out.println("Journey Details: ");
+
+        }
+
     }
 
     void changeAvailableStatus() {
-        if (available == 1)
-            available = 0;
+        if (available == true)
+            available = false;
     }
 
     void setName(String name) {
@@ -170,7 +186,7 @@ class Customer extends Landmark { // why is customer extending landmark
 
     void cancelBooking(Driver d) {
         // driver available status to be changed.
-        d.available = 1;
+        d.available = true;
         System.out.println("The booking is cancelled");
     }
 }
@@ -215,24 +231,109 @@ class Journey {
             Scanner s = new Scanner(System.in);
 
             String pickupLocation;
-            pickupLocation = s.next(); // keep iterating till right location is not entered
-            int pickupX, pickupY;
+            pickupLocation = s.next();
+            int pickupX = 0, pickupY = 0;
 
             System.out.println("Enter destination:-");
 
             String destination;
-            int destX, destY;
+            int destX = 0, destY = 0;
 
             destination = s.next();
             for (int i = 0; i < landmarks.size(); i++) {
-                if (pickupLocation == landmarks.get(i).name) {
-                    destX = landmarks.get(i).getAbscissa();
-                    destY = landmarks.get(i).getOrdinate();
-                } else if (destination == landmarks.get(i).name) {
+                if (pickupLocation.equals(landmarks.get(i).name)) {
                     pickupX = landmarks.get(i).getAbscissa();
                     pickupY = landmarks.get(i).getOrdinate();
+                    System.out.println("pickup " + pickupX + " " + pickupY);
+                } else if (destination.equals(landmarks.get(i).name)) {
+                    destX = landmarks.get(i).getAbscissa();
+                    destY = landmarks.get(i).getOrdinate();
+                    System.out.println("dest " + destX + " " + destY);
                 }
             }
+            // System.out.println(pickupX);
+            sc = new Scanner(new FileReader("driverData.txt"));
+            int numberOfDrivers = sc.nextInt();
+            sc.nextLine();
+
+            List<Driver> drivers = new ArrayList<>();
+            for (int i = 0; i < numberOfDrivers; i++) {
+                String line = sc.nextLine();
+                // System.out.println(line);
+                StringTokenizer st = new StringTokenizer(line);
+                String nameOfDriver = st.nextToken();
+                Float rating = Float.parseFloat(st.nextToken());
+                String l = st.nextToken();
+                Integer available = Integer.parseInt(st.nextToken());
+                Integer speed = Integer.parseInt(st.nextToken());
+                Landmark la = new Landmark();
+                for (int j = 0; j < landmarks.size(); j++) {
+                    if (landmarks.get(j).name.equals(l)) {
+                        la = landmarks.get(j);
+                        break;
+                    }
+                }
+                boolean availability;
+                if (available == 0) {
+                    availability = false;
+                } else {
+                    availability = true;
+                }
+                Driver d = new Driver(nameOfDriver, rating, la, availability, speed);
+                drivers.add(d);
+            }
+            // Distance between the pickup and destination
+            int distance = java.lang.Math.abs(destX - pickupX) + java.lang.Math.abs(pickupY - destY);
+            System.out.println("Distance: " + distance + " meters");
+
+            // Display the list of available drivers
+            System.out.println();
+            System.out.println("Available Drivers: ");
+            int availableDriversNumber = 0;
+            for (int i = 0; i < drivers.size(); i++) {
+                if (drivers.get(i).available) {
+                    availableDriversNumber++;
+                    System.out.print("Index: ");
+                    System.out.print(i + 1);
+                    System.out.print(" ,");
+                    System.out.print("Name: ");
+                    System.out.print(drivers.get(i).getName());
+                    System.out.print("  ,Rating: ");
+                    System.out.print(drivers.get(i).getRating());
+                    System.out.print(" ,Speed: " + drivers.get(i).speed + " m/minutes");
+                    System.out.print("  ,ETA: ");
+
+                    float minutes;
+                    int distanceFromPickup = java.lang.Math.abs(drivers.get(i).currentLocation.getAbscissa() - pickupX)
+                            + java.lang.Math.abs(drivers.get(i).currentLocation.getOrdinate() - destY);
+                    minutes = distanceFromPickup / drivers.get(i).speed;
+                    System.out.print(minutes);
+                    System.out.println(" minutes");
+                }
+            }
+            // Display the estimated fare
+            /*
+             * Algo for calculating the fare : 1. fare = 9*distance 2. if total availabe
+             * cars is less than 4 the fare would be increased by 1.2 times 3. if time of
+             * booking is after 6:00 pm(and before 8:00am) then the fare would be increased
+             * by 1.2 times
+             */
+
+            double fare = 0;
+            fare = 9 * distance;
+            if (availableDriversNumber <= 2) {
+                fare = 1.2 * fare;
+            }
+            System.out.println("Total Fare :" + fare + " Rs.");
+            System.out.println("Enter the index of the selected driver");
+            int indexForDriver = s.nextInt();
+            // Ensuring the entered index is within the avaialbe list
+            while (indexForDriver > drivers.size() || !drivers.get(indexForDriver - 1).available) {
+                System.out.println("Please enter the index from the above list only!!");
+                indexForDriver = s.nextInt();
+            }
+            // notifying the selected driver about the trip
+            drivers.get(indexForDriver).notify();
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getStackTrace());
