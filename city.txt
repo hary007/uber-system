@@ -1,7 +1,8 @@
-10 10
-5
+20 20
+6
 1 1 landmark1
 2 3 landmark2
 9 8 landmark3
 7 7 landmark4
 4 1 landmark5
+17 14 landmark6
