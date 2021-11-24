@@ -27,6 +27,14 @@ class City {
     void makeGrid() {
         grid = new int[rows][columns];
     }
+    boolean checkLandmarks(List<Landmark> l){
+        for(int i=0;i<l.size();i++){
+            if(l.get(i).getAbscissa()>columns || l.get(i).getOrdinate()>rows ){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 class Landmark extends City {
@@ -376,6 +384,12 @@ class Journey {
 
                 landmarks.add(k);
                 availableLandmarks.add(name);
+            }
+
+            //confirming that the landmarks are within the city.
+            if(!c.checkLandmarks(landmarks)){
+                System.out.println("Landmark can not be out of city...Please check your input");
+                System.exit(0);
             }
 
             String pickupLocation;

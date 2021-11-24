@@ -5,4 +5,4 @@
 9 8 landmark3
 7 7 landmark4
 4 1 landmark5
-17 14 landmark6
+7 14 landmark6
