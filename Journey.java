@@ -28,9 +28,11 @@ class City {
     void makeGrid() {
         grid = new int[rows][columns];
     }
-    void setLandmarks(List<Landmark> landmark){
-        this.landmarks=landmark;
+
+    void setLandmarks(List<Landmark> landmark) {
+        this.landmarks = landmark;
     }
+
     boolean checkLandmarks(List<Landmark> l) {
         for (int i = 0; i < l.size(); i++) {
             if (l.get(i).getAbscissa() >= columns || l.get(i).getOrdinate() >= rows) {
@@ -388,16 +390,18 @@ class Journey {
                 landmarks.add(k);
                 availableLandmarks.add(name);
             }
-            //adding the list of landmarks to the city
+            // adding the list of landmarks to the city
             c.setLandmarks(landmarks);
             // confirming that the landmarks are within the city.
             if (!c.checkLandmarks(landmarks)) {
                 System.out.println("Landmark can not be out of city...Please check your input");
                 System.exit(0);
             }
+
             Customer customer = new Customer(customerName);
 
             String pickupLocation;
+
             do {
                 System.out.println("Enter valid pickup Location:-");
                 pickupLocation = in.next();
@@ -414,7 +418,8 @@ class Journey {
             int pickupX = 0, pickupY = 0;
             int destX = 0, destY = 0;
 
-            for (int i = 0; i < landmarks.size(); i++) {
+            for (int i = 0; i < landmarks.size(); i++) { // we are getting the coordinates of locations which have been
+                                                         // entered by the customer
                 if (pickupLocation.equals(landmarks.get(i).name)) {
                     pickupX = landmarks.get(i).getAbscissa();
                     pickupY = landmarks.get(i).getOrdinate();
