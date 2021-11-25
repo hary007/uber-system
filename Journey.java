@@ -6,6 +6,7 @@ class City {
     int rows;
     int columns;
     int[][] grid;
+    List<Landmark> landmarks;
 
     City(int rows, int columns) {
         this.rows = rows;
@@ -27,7 +28,9 @@ class City {
     void makeGrid() {
         grid = new int[rows][columns];
     }
-
+    void setLandmarks(List<Landmark> landmark){
+        this.landmarks=landmark;
+    }
     boolean checkLandmarks(List<Landmark> l) {
         for (int i = 0; i < l.size(); i++) {
             if (l.get(i).getAbscissa() >= columns || l.get(i).getOrdinate() >= rows) {
@@ -38,7 +41,7 @@ class City {
     }
 }
 
-class Landmark extends City {
+class Landmark {
     String name;
     private int abscissa;
     private int ordinate;
@@ -380,7 +383,8 @@ class Journey {
                 landmarks.add(k);
                 availableLandmarks.add(name);
             }
-
+            //adding the list of landmarks to the city
+            c.setLandmarks(landmarks);
             // confirming that the landmarks are within the city.
             if (!c.checkLandmarks(landmarks)) {
                 System.out.println("Landmark can not be out of city...Please check your input");
