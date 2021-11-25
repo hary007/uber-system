@@ -54,10 +54,11 @@ class Landmark extends City {
         this.abscissa = obj.getAbscissa();
         this.ordinate = obj.getOrdinate();
     }
-    Landmark(String name,int x,int y){
-        this.name=name;
-        abscissa=x;
-        ordinate=y;
+
+    Landmark(String name, int x, int y) {
+        this.name = name;
+        abscissa = x;
+        ordinate = y;
     }
 
     void setName(String name) {
@@ -79,7 +80,8 @@ class Landmark extends City {
     int getOrdinate() {
         return this.ordinate;
     }
-    String getName(){
+
+    String getName() {
         return this.name;
     }
 
@@ -189,15 +191,19 @@ class Customer {
     String name;
     Landmark pickupLocation;
     Landmark destination;
-    Customer(String name ){
-        this.name=name;
+
+    Customer(String name) {
+        this.name = name;
     }
-    void setPickupLocation(String name,int x,int y){
-        pickupLocation=new Landmark(name,x,y);
+
+    void setPickupLocation(String name, int x, int y) {
+        pickupLocation = new Landmark(name, x, y);
     }
-    void setDestination(String name,int x,int y){
-        destination=new Landmark(name,x,y);
+
+    void setDestination(String name, int x, int y) {
+        destination = new Landmark(name, x, y);
     }
+
     void cancelBooking(Driver d) {
         // driver available status to be changed.
         d.available = true;
@@ -243,11 +249,10 @@ class Journey {
 
         try {
             // CUSTOMER LOGIN TAKES PLACE HERE
-            String customerName=new String();
-            String customerPassword=new String();
+            String customerName = new String();
+            String customerPassword = new String();
             try {
 
-                
                 HashMap<String, String> customerLoginData = new HashMap<>();
 
                 long numberOfRegisteredCustomers = countLineFast("customerLoginData.txt");
@@ -386,7 +391,7 @@ class Journey {
                 System.out.println("Landmark can not be out of city...Please check your input");
                 System.exit(0);
             }
-            Customer customer=new Customer(customerName);                        
+            Customer customer = new Customer(customerName);
 
             String pickupLocation;
             do {
@@ -404,8 +409,7 @@ class Journey {
 
             int pickupX = 0, pickupY = 0;
             int destX = 0, destY = 0;
-            
-            
+
             for (int i = 0; i < landmarks.size(); i++) {
                 if (pickupLocation.equals(landmarks.get(i).name)) {
                     pickupX = landmarks.get(i).getAbscissa();
@@ -417,8 +421,8 @@ class Journey {
                     System.out.println("dest " + destX + " " + destY);
                 }
             }
-            customer.setPickupLocation(pickupLocation,pickupX,pickupY);
-            customer.setDestination(destination,destX,destY);
+            customer.setPickupLocation(pickupLocation, pickupX, pickupY);
+            customer.setDestination(destination, destX, destY);
 
             // System.out.println(pickupX);
             sc = new Scanner(new FileReader("driverData.txt"));
