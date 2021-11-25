@@ -329,7 +329,7 @@ class Journey {
                     }
                 } while (!customerLoginData.containsKey(customerName));
 
-                System.out.println(customerLoginData); // Comment it out.
+                //System.out.println(customerLoginData); // Comment it out.
 
                 for (int count = 2; count >= 0; count--) {
                     System.out.print("Please enter your password: ");

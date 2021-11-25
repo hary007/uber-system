@@ -1,0 +1,50 @@
+Test Case 1
+
+Input:
+c //create new account
+pranav //already a customer
+hary  //already a customer
+test1 //new customer
+password //password for the new user
+
+test1 //username for login
+pwd //incorrect password 1
+abcd //incorr pwd 2
+helloworld //incor pwd 3
+
+TestCase 2
+l
+quit
+
+Test Case 3
+Input:
+l //login for existing account
+test1 //username for login
+password //correct password (note that two users can have same passwords)
+landmark8 //invalid landmark
+landmark1 //valid pickup landmark
+landmark1 //valid destination landmark but same as pickup and hence wont work
+landmark6 //valid destination
+6 //invalid index
+5 //valid index
+abcdef //incor pwd 1 for driver
+xyz //incor pwd 2 for driver
+hello //incor pwd 3 for driver
+2 //index for another driver
+qwerty //correct pwd for driver
+n //ride rejected by driver
+1 //index of other driver
+123abc //correct pwd for driver
+y //accept the ride
+n //user didn't cancel the ride
+
+Test Case 4
+l
+test1
+password
+landmark1
+landmark6
+1
+123abc
+y
+y //user cancelled the ride and system exitted.
