@@ -260,7 +260,7 @@ class Journey {
 
                 long numberOfRegisteredCustomers = countLineFast("customerLoginData.txt");
                 lg = new Scanner(new FileReader("customerLoginData.txt"));
-                System.out.println(numberOfRegisteredCustomers);
+                // System.out.println(numberOfRegisteredCustomers);
 
                 boolean loggedInSuccessfully = false;
 
